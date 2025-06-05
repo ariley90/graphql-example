@@ -14,6 +14,15 @@ const config: CodegenConfig = {
     'src/types.ts': {
       plugins: ['typescript'],
     },
+    'src/mockDataGenerators.ts': {
+      plugins: ['add','typescript-mock-data'],
+      config:{
+        typesFile:'./types.ts',
+        listElementCount: 3,
+        prefix: 'createMock',
+        content:'/* eslint-disable @typescript-eslint/no-unused-vars */'
+      }
+    },
     'src/': {
       preset: 'near-operation-file',
       presetConfig: { fileName:'types',extension: '.generated.tsx', baseTypesPath: 'types.ts' },

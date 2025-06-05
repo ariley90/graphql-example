@@ -8,7 +8,7 @@
 - playwright
 - pino logger
 - eslint
-- fake data
+- fake data ✅
 - feature with included mock
 - fragments
 - ts graph codegen ✅
