@@ -7,7 +7,7 @@ import Link from "next/link";
 import {
   CharacterQuery,
   CharacterQueryVariables,
-} from "./generated/page.types";
+} from "./generated/graph.types";
 
 const query = gql`
   query Character($characterId: ID!) {

@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import {
   LocationsQuery,
   LocationsQueryVariables,
-} from "./generated/page.types";
+} from "./generated/graph.types";
 
 const query = gql`
   query Locations($page: Int) {

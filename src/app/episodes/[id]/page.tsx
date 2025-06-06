@@ -3,7 +3,7 @@
 import { gql, useSuspenseQuery } from "@apollo/client";
 import { useParams } from "next/navigation";
 import { Suspense } from "react";
-import { EpisodeQuery, EpisodeQueryVariables } from "./generated/page.types";
+import { EpisodeQuery, EpisodeQueryVariables } from "./generated/graph.types";
 const query = gql`
   query Episode($episodeId: ID!) {
     episode(id: $episodeId) {

@@ -1,12 +1,12 @@
-import * as Types from '../../../generated/types';
+import * as Types from '../../../../generated/types';
 
 import { graphql, type GraphQLResponseResolver, type RequestHandlerOptions } from 'msw'
-export type LocationsQueryVariables = Types.Exact<{
-  page?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+type CharacterQueryVariables = Types.Exact<{
+  characterId: Types.Scalars['ID']['input'];
 }>;
 
 
-export type LocationsQuery = { __typename?: 'Query', locations?: { __typename?: 'Locations', results?: Array<{ __typename?: 'Location', id?: string | null, name?: string | null } | null> | null } | null };
+type CharacterQuery = { __typename?: 'Query', character?: { __typename?: 'Character', id?: string | null, image?: string | null, name?: string | null, species?: string | null, status?: string | null } | null };
 
 
 /**
@@ -14,19 +14,19 @@ export type LocationsQuery = { __typename?: 'Query', locations?: { __typename?: 
  * @param options Options object to customize the behavior of the mock. ([see more](https://mswjs.io/docs/api/graphql#handler-options))
  * @see https://mswjs.io/docs/basics/response-resolver
  * @example
- * mockLocationsQuery(
+ * mockCharacterQuery(
  *   ({ query, variables }) => {
- *     const { page } = variables;
+ *     const { characterId } = variables;
  *     return HttpResponse.json({
- *       data: { locations }
+ *       data: { character }
  *     })
  *   },
  *   requestOptions
  * )
  */
-export const mockLocationsQuery = (resolver: GraphQLResponseResolver<LocationsQuery, LocationsQueryVariables>, options?: RequestHandlerOptions) =>
-  graphql.query<LocationsQuery, LocationsQueryVariables>(
-    'Locations',
+export const mockCharacterQuery = (resolver: GraphQLResponseResolver<CharacterQuery, CharacterQueryVariables>, options?: RequestHandlerOptions) =>
+  graphql.query<CharacterQuery, CharacterQueryVariables>(
+    'Character',
     resolver,
     options
   )

@@ -1,18 +1,15 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
  
 const config: CodegenConfig = {
-   schema: 'https://rickandmortyapi.com/graphql',
-//    documents: ['src/**/*.tsx'],
-   ignoreNoDocuments: true, // for better experience with the watcher
-//    generates: {
-//       './src/gql/': {
-//         preset: 'client',
-//       }
-//    },
-   documents: 'src/**/!(*.generated).{ts,tsx}',
+  schema: 'https://rickandmortyapi.com/graphql',
+  ignoreNoDocuments: true, // for better experience with the watcher
+  documents: 'src/**/!(*.generated).{ts,tsx}',
   generates: {
     'src/generated/types.ts': {
-      plugins: ['typescript'],
+      plugins: ['add','typescript'],
+      config:{
+        content:'/* eslint-disable @typescript-eslint/no-explicit-any */'
+      }
     },
     'src/staticMockDataGenerator.ts': {
       plugins: ['add','typescript-mock-data'],
@@ -34,31 +31,26 @@ const config: CodegenConfig = {
       }
     },
     './src/generatedMSWHandlers.ts': {
-      plugins: ['typescript-operations','typescript-msw'],
+      plugins: ['add','typescript','typescript-operations','typescript-msw'],
       config:{
-        // documentMode: 'documentNode',
-        // importDocumentNodeExternallyFrom: 'near-operation-file',
-        // documentNodeImport: './types.ts',
-        // importOperationTypesFrom:'./types.ts',
+        noExport:true,
+        content:'/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */'
       }
     },
     'src/': {
       preset: 'near-operation-file',
-      presetConfig: { folder:'generated',extension: '.types.ts', baseTypesPath: 'generated/types.ts' },
-      plugins: ['typescript-operations', 'typescript-react-apollo'],
+      presetConfig: { folder:'generated',fileName:'graph', extension: '.types.ts', baseTypesPath: 'generated/types.ts' },
+      plugins: ['typescript-operations', ],
       config: { 
-        withHooks: true,
-        withResultType:true,
         documentMode: 'documentNode',
      },
     },
     './src/': {
       preset: 'near-operation-file',
-      presetConfig: { folder:'generated',extension: '.mswHandler.ts', baseTypesPath: 'generated/types.ts' },
+      presetConfig: { folder:'generated', fileName:'graph', extension: '.mswHandler.ts', baseTypesPath: 'generated/types.ts' },
       plugins: ['typescript-operations', 'typescript-msw'],
       config: { 
-        withHooks: true,
-        withResultType:true,
+        noExport: true,
         documentMode: 'documentNode',
      },
     },

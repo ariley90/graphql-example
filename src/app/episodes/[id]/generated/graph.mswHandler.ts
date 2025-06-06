@@ -1,12 +1,12 @@
 import * as Types from '../../../../generated/types';
 
 import { graphql, type GraphQLResponseResolver, type RequestHandlerOptions } from 'msw'
-export type CharacterQueryVariables = Types.Exact<{
-  characterId: Types.Scalars['ID']['input'];
+type EpisodeQueryVariables = Types.Exact<{
+  episodeId: Types.Scalars['ID']['input'];
 }>;
 
 
-export type CharacterQuery = { __typename?: 'Query', character?: { __typename?: 'Character', id?: string | null, image?: string | null, name?: string | null, species?: string | null, status?: string | null } | null };
+type EpisodeQuery = { __typename?: 'Query', episode?: { __typename?: 'Episode', air_date?: string | null, created?: string | null, episode?: string | null, id?: string | null, name?: string | null } | null };
 
 
 /**
@@ -14,19 +14,19 @@ export type CharacterQuery = { __typename?: 'Query', character?: { __typename?: 
  * @param options Options object to customize the behavior of the mock. ([see more](https://mswjs.io/docs/api/graphql#handler-options))
  * @see https://mswjs.io/docs/basics/response-resolver
  * @example
- * mockCharacterQuery(
+ * mockEpisodeQuery(
  *   ({ query, variables }) => {
- *     const { characterId } = variables;
+ *     const { episodeId } = variables;
  *     return HttpResponse.json({
- *       data: { character }
+ *       data: { episode }
  *     })
  *   },
  *   requestOptions
  * )
  */
-export const mockCharacterQuery = (resolver: GraphQLResponseResolver<CharacterQuery, CharacterQueryVariables>, options?: RequestHandlerOptions) =>
-  graphql.query<CharacterQuery, CharacterQueryVariables>(
-    'Character',
+export const mockEpisodeQuery = (resolver: GraphQLResponseResolver<EpisodeQuery, EpisodeQueryVariables>, options?: RequestHandlerOptions) =>
+  graphql.query<EpisodeQuery, EpisodeQueryVariables>(
+    'Episode',
     resolver,
     options
   )

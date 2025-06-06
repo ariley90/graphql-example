@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import {
   CharactersQuery,
   CharactersQueryVariables,
-} from "./generated/page.types";
+} from "./generated/graph.types";
 
 const query = gql`
   query Characters($page: Int) {

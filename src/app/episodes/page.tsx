@@ -3,7 +3,7 @@ import { paths } from "@/config/paths";
 import { gql, useSuspenseQuery } from "@apollo/client";
 import Link from "next/link";
 import { Suspense, use } from "react";
-import { EpisodesQuery, EpisodesQueryVariables } from "./generated/page.types";
+import { EpisodesQuery, EpisodesQueryVariables } from "./generated/graph.types";
 
 const query = gql`
   query Episodes($page: Int) {

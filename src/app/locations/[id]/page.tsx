@@ -4,7 +4,7 @@ import { gql, useSuspenseQuery } from "@apollo/client";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Suspense } from "react";
-import { LocationQuery, LocationQueryVariables } from "./generated/page.types";
+import { LocationQuery, LocationQueryVariables } from "./generated/graph.types";
 
 const query = gql`
   query Location($locationId: ID!) {
