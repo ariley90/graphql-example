@@ -214,7 +214,7 @@ type CharactersQueryVariables = Exact<{
 }>;
 
 
-type CharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', results?: Array<{ __typename?: 'Character', name?: string | null, id?: string | null } | null> | null } | null };
+type CharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', info?: { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null } | null, results?: Array<{ __typename?: 'Character', name?: string | null, id?: string | null } | null> | null } | null };
 
 type EpisodeQueryVariables = Exact<{
   episodeId: Scalars['ID']['input'];
@@ -242,7 +242,7 @@ type LocationsQueryVariables = Exact<{
 }>;
 
 
-type LocationsQuery = { __typename?: 'Query', locations?: { __typename?: 'Locations', results?: Array<{ __typename?: 'Location', id?: string | null, name?: string | null } | null> | null } | null };
+type LocationsQuery = { __typename?: 'Query', locations?: { __typename?: 'Locations', info?: { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null } | null, results?: Array<{ __typename?: 'Location', id?: string | null, name?: string | null } | null> | null } | null };
 
 type PaginationFragment = { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null };
 

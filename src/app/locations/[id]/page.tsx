@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Suspense } from "react";
 import { LocationQuery, LocationQueryVariables } from "./generated/graph.types";
+import { paths } from "@/config/paths";
+import Link from "next/link";
 
 const query = gql`
   query Location($locationId: ID!) {
@@ -51,13 +53,15 @@ function LocationCard({ id }: { id: string }) {
             className="text-sm flex flex-col items-center justify-around"
           >
             {resident?.name}
-            {resident?.image && (
-              <Image
-                src={resident.image}
-                alt={resident.name ?? "Unknown Resident"}
-                width={80}
-                height={80}
-              />
+            {resident?.image && resident.id && (
+              <Link href={paths.character.getHref(resident.id)}>
+                <Image
+                  src={resident.image}
+                  alt={resident.name ?? "Unknown Resident"}
+                  width={80}
+                  height={80}
+                />
+              </Link>
             )}
           </li>
         ))}

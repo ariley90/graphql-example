@@ -3,7 +3,7 @@ export const paths = {
     getHref: () => '/',
   },
   characters: {
-    getHref: () => '/characters',
+    getHref: (page?:string|number) => '/characters' + (page ? `?page=${page}` : ''),
   },
   character: {
     getHref: (id:string|number) => '/characters/' + id,
@@ -15,7 +15,7 @@ export const paths = {
     getHref: (id:string|number) => '/episodes/' + id,
   },
   locations: {
-    getHref: () => '/locations',
+    getHref: (page?:string|number) => '/locations' + (page ? `?page=${page}` : ''),
   },
   location: {
     getHref: (id:string|number) => '/locations/' + id,

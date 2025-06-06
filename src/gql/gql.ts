@@ -15,20 +15,20 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "\n  query Character($characterId: ID!) {\n    character(id: $characterId) {\n      id\n      image\n      name\n      species\n      status\n    }\n  }\n": typeof types.CharacterDocument,
-    "\n  query Characters($page: Int) {\n    characters(page: $page) {\n      results {\n        name\n        id\n      }\n    }\n  }\n": typeof types.CharactersDocument,
+    "\n  query Characters($page: Int) {\n    characters(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        name\n        id\n      }\n    }\n  }\n": typeof types.CharactersDocument,
     "\n  query Episode($episodeId: ID!) {\n    episode(id: $episodeId) {\n      air_date\n      created\n      episode\n      id\n      name\n    }\n  }\n": typeof types.EpisodeDocument,
-    "\n  query Episodes($page: Int) {\n    episodes(page: $page) {\n      info {\n        count\n        next\n        pages\n        prev\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n": typeof types.EpisodesDocument,
+    "\n  query Episodes($page: Int) {\n    episodes(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n": typeof types.EpisodesDocument,
     "\n  query Location($locationId: ID!) {\n    location(id: $locationId) {\n      name\n      dimension\n      id\n      residents {\n        name\n        id\n        image\n      }\n    }\n  }\n": typeof types.LocationDocument,
-    "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      results {\n        id\n        name\n      }\n    }\n  }\n": typeof types.LocationsDocument,
+    "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n": typeof types.LocationsDocument,
     "\n  fragment Pagination on Info {\n    count\n    next\n    pages\n    prev\n  }\n": typeof types.PaginationFragmentDoc,
 };
 const documents: Documents = {
     "\n  query Character($characterId: ID!) {\n    character(id: $characterId) {\n      id\n      image\n      name\n      species\n      status\n    }\n  }\n": types.CharacterDocument,
-    "\n  query Characters($page: Int) {\n    characters(page: $page) {\n      results {\n        name\n        id\n      }\n    }\n  }\n": types.CharactersDocument,
+    "\n  query Characters($page: Int) {\n    characters(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        name\n        id\n      }\n    }\n  }\n": types.CharactersDocument,
     "\n  query Episode($episodeId: ID!) {\n    episode(id: $episodeId) {\n      air_date\n      created\n      episode\n      id\n      name\n    }\n  }\n": types.EpisodeDocument,
-    "\n  query Episodes($page: Int) {\n    episodes(page: $page) {\n      info {\n        count\n        next\n        pages\n        prev\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n": types.EpisodesDocument,
+    "\n  query Episodes($page: Int) {\n    episodes(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n": types.EpisodesDocument,
     "\n  query Location($locationId: ID!) {\n    location(id: $locationId) {\n      name\n      dimension\n      id\n      residents {\n        name\n        id\n        image\n      }\n    }\n  }\n": types.LocationDocument,
-    "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      results {\n        id\n        name\n      }\n    }\n  }\n": types.LocationsDocument,
+    "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n": types.LocationsDocument,
     "\n  fragment Pagination on Info {\n    count\n    next\n    pages\n    prev\n  }\n": types.PaginationFragmentDoc,
 };
 
@@ -53,7 +53,7 @@ export function graphql(source: "\n  query Character($characterId: ID!) {\n    c
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Characters($page: Int) {\n    characters(page: $page) {\n      results {\n        name\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  query Characters($page: Int) {\n    characters(page: $page) {\n      results {\n        name\n        id\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query Characters($page: Int) {\n    characters(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        name\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  query Characters($page: Int) {\n    characters(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        name\n        id\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -61,7 +61,7 @@ export function graphql(source: "\n  query Episode($episodeId: ID!) {\n    episo
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Episodes($page: Int) {\n    episodes(page: $page) {\n      info {\n        count\n        next\n        pages\n        prev\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query Episodes($page: Int) {\n    episodes(page: $page) {\n      info {\n        count\n        next\n        pages\n        prev\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query Episodes($page: Int) {\n    episodes(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query Episodes($page: Int) {\n    episodes(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -69,7 +69,7 @@ export function graphql(source: "\n  query Location($locationId: ID!) {\n    loc
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      results {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query Locations($page: Int) {\n    locations(page: $page) {\n      results {\n        id\n        name\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

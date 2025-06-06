@@ -6,7 +6,7 @@ type CharactersQueryVariables = Types.Exact<{
 }>;
 
 
-type CharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', results?: Array<{ __typename?: 'Character', name?: string | null, id?: string | null } | null> | null } | null };
+type CharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', info?: { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null } | null, results?: Array<{ __typename?: 'Character', name?: string | null, id?: string | null } | null> | null } | null };
 
 
 /**
