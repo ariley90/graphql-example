@@ -63,6 +63,15 @@ const config: CodegenConfig = {
         documentMode: 'documentNode',
      },
     },
+    './src/gql/': {
+      preset: 'client',
+      presetConfig: {
+        fragmentMasking: { unmaskFunctionName: 'getFragmentData' }
+      },
+      config: {
+        noExport: true,
+      }
+    }
   },
 }
 export default config

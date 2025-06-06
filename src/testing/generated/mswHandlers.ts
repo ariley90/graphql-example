@@ -244,6 +244,8 @@ type LocationsQueryVariables = Exact<{
 
 type LocationsQuery = { __typename?: 'Query', locations?: { __typename?: 'Locations', results?: Array<{ __typename?: 'Location', id?: string | null, name?: string | null } | null> | null } | null };
 
+type PaginationFragment = { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null };
+
 
 /**
  * @param resolver A function that accepts [resolver arguments](https://mswjs.io/docs/api/graphql#resolver-argument) and must always return the instruction on what to do with the intercepted request. ([see more](https://mswjs.io/docs/concepts/response-resolver#resolver-instructions))
