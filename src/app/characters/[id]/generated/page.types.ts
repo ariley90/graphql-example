@@ -1,4 +1,4 @@
-import * as Types from '../../../types';
+import * as Types from '../../../../generated/types';
 
 import { DocumentNode } from 'graphql';
 import * as Apollo from '@apollo/client';

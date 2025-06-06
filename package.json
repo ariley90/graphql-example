@@ -23,6 +23,7 @@
     "@eslint/eslintrc": "^3",
     "@graphql-codegen/cli": "^5.0.7",
     "@graphql-codegen/near-operation-file-preset": "^3.0.1",
+    "@graphql-codegen/typescript-msw": "^3.0.1",
     "@graphql-codegen/typescript-react-apollo": "^4.3.3",
     "@parcel/watcher": "^2.5.1",
     "@tailwindcss/postcss": "^4",
