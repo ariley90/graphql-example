@@ -10,7 +10,8 @@
     "generate": "graphql-codegen",
     "prestart": "npm run generate",
     "predev": "npm run generate",
-    "test": "vitest"
+    "test": "vitest",
+    "knip": "knip"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
@@ -28,7 +29,7 @@
     "@graphql-codegen/typescript-msw": "^3.0.1",
     "@parcel/watcher": "^2.5.1",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.19.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4.5.1",
@@ -38,6 +39,7 @@
     "eslint-plugin-import": "^2.31.0",
     "graphql-codegen-typescript-mock-data": "^4.4.0",
     "graphql-codegen-typescript-validation-schema": "^0.17.1",
+    "knip": "^5.60.2",
     "msw": "^2.9.0",
     "plop": "^4.0.1",
     "tailwindcss": "^4",
