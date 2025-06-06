@@ -8,6 +8,7 @@ import {
   CharacterQuery,
   CharacterQueryVariables,
 } from "./generated/graph.types";
+import { Metadata } from "next";
 
 const query = gql`
   query Character($characterId: ID!) {
@@ -20,6 +21,11 @@ const query = gql`
     }
   }
 `;
+
+export const metadata: Metadata = {
+  title: "Rick and Morty Index - Characters",
+  description: "Based on beachproof react",
+};
 
 export default async function Graph({
   params,
@@ -35,7 +41,7 @@ export default async function Graph({
     variables: { characterId: id },
   });
   return (
-    <div className="justify-items-center min-h-screen p-8 pb-20 gap-4 sm:p-20 ">
+    <div className="justify-items-center  p-8 pb-20 gap-4 sm:p-20 ">
       <h1>HIYA</h1>
       {data.character && (
         <h2 className="text-lg font-bold">{data.character.name}</h2>

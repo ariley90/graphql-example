@@ -69,7 +69,7 @@ function LocationCard({ id }: { id: string }) {
 export default function Location() {
   const { id } = useParams<{ id: string }>();
   return (
-    <div className="justify-items-center min-h-screen p-8 pb-20 gap-4 sm:p-20 ">
+    <div className="justify-items-center  p-8 pb-20 gap-4 sm:p-20 ">
       <h1>LOCATION</h1>
       <Suspense fallback={<div>Loading...</div>}>
         <LocationCard id={id} />

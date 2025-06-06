@@ -47,7 +47,7 @@ function EpisodeCard({ id }: { id: string }) {
 export default function Episode() {
   const { id } = useParams<{ id: string }>();
   return (
-    <div className="justify-items-center min-h-screen p-8 pb-20 gap-4 sm:p-20 ">
+    <div className="justify-items-center  p-8 pb-20 gap-4 sm:p-20 ">
       <h1>EPISODE</h1>
       <Suspense fallback={<div>Loading...</div>}>
         <EpisodeCard id={id} />
