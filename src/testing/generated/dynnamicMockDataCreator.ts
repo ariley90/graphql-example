@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { fakerEN as faker } from '@faker-js/faker';
-import { Character, Characters, Episode, Episodes, FilterCharacter, FilterEpisode, FilterLocation, Info, Location, Locations, Query, CacheControlScope } from './generated/types';
+import { Character, Characters, Episode, Episodes, FilterCharacter, FilterEpisode, FilterLocation, Info, Location, Locations, Query, CacheControlScope } from '@/generated/types';
 
 faker.seed(0);
 

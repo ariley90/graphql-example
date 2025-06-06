@@ -11,26 +11,26 @@ const config: CodegenConfig = {
         content:'/* eslint-disable @typescript-eslint/no-explicit-any */'
       }
     },
-    'src/staticMockDataGenerator.ts': {
+    'src/testing/generated/staticMockDataCreator.ts': {
       plugins: ['add','typescript-mock-data'],
       config:{
-        typesFile:'./generated/types.ts',
+        typesFile:'@/generated/types.ts',
         listElementCount: 3,
         prefix: 'createStaticMock',
         content:'/* eslint-disable @typescript-eslint/no-unused-vars */'
       }
     },
-    'src/dynnamicMockDataGenerator.ts': {
+    'src/testing/generated/dynnamicMockDataCreator.ts': {
       plugins: ['add','typescript-mock-data'],
       config:{
-        typesFile:'./generated/types.ts',
+        typesFile:'@/generated/types.ts',
         listElementCount: 3,
         dynamicValues:true,
         prefix: 'createDynamicMock',
         content:'/* eslint-disable @typescript-eslint/no-unused-vars */'
       }
     },
-    './src/generatedMSWHandlers.ts': {
+    './src/testing/generated/mswHandlers.ts': {
       plugins: ['add','typescript','typescript-operations','typescript-msw'],
       config:{
         noExport:true,
