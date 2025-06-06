@@ -39,6 +39,7 @@
     "graphql-codegen-typescript-mock-data": "^4.4.0",
     "graphql-codegen-typescript-validation-schema": "^0.17.1",
     "msw": "^2.9.0",
+    "plop": "^4.0.1",
     "tailwindcss": "^4",
     "typescript": "^5.8.3",
     "vite-tsconfig-paths": "^5.1.4",
