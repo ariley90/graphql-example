@@ -2,6 +2,7 @@
   "name": "bulletproof-apollo-next",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,7 +13,8 @@
     "prestart": "npm run generate",
     "predev": "npm run generate",
     "test": "vitest",
-    "knip": "knip"
+    "knip": "knip",
+    "plop": "NODE_OPTIONS='--import tsx' plop --plopfile=plopfile.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
@@ -45,6 +47,7 @@
     "msw": "^2.9.0",
     "plop": "^4.0.1",
     "tailwindcss": "^4",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.2"

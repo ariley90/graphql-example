@@ -6,7 +6,7 @@
 - fake data ✅
 - ts graph codegen ✅
 - msw 🚧
-- plop generator
+- plop generator 🚧
 - move to /features
 - fragments
 - storybook
