@@ -37,6 +37,15 @@ const config: CodegenConfig = {
         content:'/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */'
       }
     },
+    'src/generated/validationSchema.ts': {
+      plugins: ['add','typescript-validation-schema'],
+      config:{
+        schema: 'zod',
+        importFrom: '@/generated/types',
+        content:'/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-object-type */'
+
+      }
+    },
     'src/': {
       preset: 'near-operation-file',
       presetConfig: { folder:'generated',fileName:'graph', extension: '.types.ts', baseTypesPath: 'generated/types.ts' },

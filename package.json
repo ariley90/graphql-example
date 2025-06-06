@@ -9,14 +9,16 @@
     "lint": "next lint",
     "generate": "graphql-codegen",
     "prestart": "npm run generate",
-    "predev": "npm run generate"
+    "predev": "npm run generate",
+    "test": "vitest"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
     "@apollo/client-integration-nextjs": "^0.12.2",
     "next": "15.3.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^3.25.55"
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.12.16",
@@ -29,13 +31,17 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.5.1",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
     "eslint-plugin-check-file": "^3.2.0",
     "eslint-plugin-import": "^2.31.0",
     "graphql-codegen-typescript-mock-data": "^4.4.0",
+    "graphql-codegen-typescript-validation-schema": "^0.17.1",
     "msw": "^2.9.0",
     "tailwindcss": "^4",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.2"
   }
 }
