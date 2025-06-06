@@ -3,6 +3,7 @@ import { paths } from "@/config/paths";
 import { gql, useSuspenseQuery } from "@apollo/client";
 import Link from "next/link";
 import { Suspense, use } from "react";
+import { EpisodesQuery, EpisodesQueryVariables } from "./generated/page.types";
 
 const query = gql`
   query Episodes($page: Int) {
@@ -21,44 +22,32 @@ const query = gql`
   }
 `;
 
-type EpisodesQueryResult = {
-  episodes: {
-    info: {
-      count: number;
-      next: number | null;
-      pages: number;
-      prev: number | null;
-    };
-    results: {
-      id: string;
-      name: string;
-    }[];
-  };
-};
-
 function List({ page }: { page: number }) {
-  const { data } = useSuspenseQuery<EpisodesQueryResult>(query, {
-    variables: { page },
-  });
+  const { data } = useSuspenseQuery<EpisodesQuery, EpisodesQueryVariables>(
+    query,
+    {
+      variables: { page },
+    }
+  );
 
   return (
     <div>
       <ol>
-        {data.episodes.results.map((ep) => (
-          <li key={ep.id}>
-            <Link href={paths.episode.getHref(ep.id)}>{ep.name}</Link>
+        {data?.episodes?.results?.map((ep) => (
+          <li key={ep?.id}>
+            <Link href={paths.episode.getHref(ep?.id ?? 0)}>{ep?.name}</Link>
           </li>
         ))}
       </ol>
       <div className="flex mt-4 gap-4">
-        <div>Count: {data.episodes.info.count}</div>
-        <div>Pages: {data.episodes.info.pages}</div>
-        {data.episodes.info.prev && (
+        <div>Count: {data?.episodes?.info?.count}</div>
+        <div>Pages: {data?.episodes?.info?.pages}</div>
+        {data?.episodes?.info?.prev && (
           <Link href={paths.episodes.getHref(data.episodes.info.prev)}>
             prev
           </Link>
         )}
-        {data.episodes.info.next && (
+        {data?.episodes?.info?.next && (
           <Link href={paths.episodes.getHref(data.episodes.info.next)}>
             next
           </Link>

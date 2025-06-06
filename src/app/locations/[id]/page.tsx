@@ -4,6 +4,8 @@ import { gql, useSuspenseQuery } from "@apollo/client";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Suspense } from "react";
+import { LocationQuery, LocationQueryVariables } from "./generated/page.types";
+
 const query = gql`
   query Location($locationId: ID!) {
     location(id: $locationId) {
@@ -19,23 +21,13 @@ const query = gql`
   }
 `;
 
-type LocationQueryResult = {
-  location: {
-    name: string;
-    dimension: string;
-    id: string;
-    residents: {
-      name: string;
-      id: string;
-      image: string;
-    }[];
-  };
-};
-
 function LocationCard({ id }: { id: string }) {
-  const { data } = useSuspenseQuery<LocationQueryResult>(query, {
-    variables: { locationId: id },
-  });
+  const { data } = useSuspenseQuery<LocationQuery, LocationQueryVariables>(
+    query,
+    {
+      variables: { locationId: id },
+    }
+  );
   if (!data?.location) {
     return (
       <div className="flex flex-col items-center">
@@ -55,16 +47,18 @@ function LocationCard({ id }: { id: string }) {
       <ul className="grid grid-cols-5 gap-4">
         {residents.map((resident) => (
           <li
-            key={resident.id}
+            key={resident?.id}
             className="text-sm flex flex-col items-center justify-around"
           >
-            {resident.name}
-            <Image
-              src={resident.image}
-              alt={resident.name}
-              width={80}
-              height={80}
-            />
+            {resident?.name}
+            {resident?.image && (
+              <Image
+                src={resident.image}
+                alt={resident.name ?? "Unknown Resident"}
+                width={80}
+                height={80}
+              />
+            )}
           </li>
         ))}
       </ul>

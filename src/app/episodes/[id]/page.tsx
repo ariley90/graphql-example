@@ -3,6 +3,7 @@
 import { gql, useSuspenseQuery } from "@apollo/client";
 import { useParams } from "next/navigation";
 import { Suspense } from "react";
+import { EpisodeQuery, EpisodeQueryVariables } from "./generated/page.types";
 const query = gql`
   query Episode($episodeId: ID!) {
     episode(id: $episodeId) {
@@ -15,20 +16,13 @@ const query = gql`
   }
 `;
 
-type EpisodeQueryResult = {
-  episode: {
-    air_date: string;
-    created: string;
-    episode: string;
-    id: string;
-    name: string;
-  };
-};
-
 function EpisodeCard({ id }: { id: string }) {
-  const { data } = useSuspenseQuery<EpisodeQueryResult>(query, {
-    variables: { episodeId: id },
-  });
+  const { data } = useSuspenseQuery<EpisodeQuery, EpisodeQueryVariables>(
+    query,
+    {
+      variables: { episodeId: id },
+    }
+  );
   if (!data?.episode) {
     return (
       <div className="flex flex-col items-center">

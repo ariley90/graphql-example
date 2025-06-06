@@ -3,6 +3,10 @@ import { paths } from "@/config/paths";
 import { gql, useSuspenseQuery } from "@apollo/client";
 import Link from "next/link";
 import { Suspense } from "react";
+import {
+  CharactersQuery,
+  CharactersQueryVariables,
+} from "./generated/page.types";
 
 const query = gql`
   query Characters($page: Int) {
@@ -14,27 +18,20 @@ const query = gql`
     }
   }
 `;
-
-type CharactersQueryResult = {
-  characters: {
-    results: {
-      id: string;
-      name: string;
-    }[];
-  };
-};
-
 function List() {
-  const { data } = useSuspenseQuery<CharactersQueryResult>(query, {
-    variables: { page: 1 },
-  });
+  const { data } = useSuspenseQuery<CharactersQuery, CharactersQueryVariables>(
+    query,
+    {
+      variables: { page: 1 },
+    }
+  );
 
   return (
     <ol>
-      {data.characters.results.map((character) => (
-        <li key={character.id}>
-          <Link href={paths.character.getHref(character.id)}>
-            {character.name}
+      {data?.characters?.results?.map((character) => (
+        <li key={character?.id}>
+          <Link href={paths.character.getHref(character?.id ?? 0)}>
+            {character?.name}
           </Link>
         </li>
       ))}

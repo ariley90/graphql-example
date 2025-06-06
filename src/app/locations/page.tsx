@@ -1,11 +1,14 @@
 "use client";
 import { paths } from "@/config/paths";
-import { gql } from "@apollo/client";
+import { gql, useSuspenseQuery } from "@apollo/client";
 import Link from "next/link";
 import { Suspense } from "react";
-import { useLocationsSuspenseQuery } from "./types.generated";
+import {
+  LocationsQuery,
+  LocationsQueryVariables,
+} from "./generated/page.types";
 
-export const query = gql`
+const query = gql`
   query Locations($page: Int) {
     locations(page: $page) {
       results {
@@ -17,9 +20,12 @@ export const query = gql`
 `;
 
 function List() {
-  const { data } = useLocationsSuspenseQuery({
-    variables: { page: 1 },
-  });
+  const { data } = useSuspenseQuery<LocationsQuery, LocationsQueryVariables>(
+    query,
+    {
+      variables: { page: 1 },
+    }
+  );
 
   return (
     <ol>

@@ -4,6 +4,10 @@ import { getClient } from "@/lib/apolloClient";
 import { gql } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  CharacterQuery,
+  CharacterQueryVariables,
+} from "./generated/page.types";
 
 const query = gql`
   query Character($characterId: ID!) {
@@ -23,7 +27,10 @@ export default async function Graph({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { data } = await getClient().query({
+  const { data } = await getClient().query<
+    CharacterQuery,
+    CharacterQueryVariables
+  >({
     query,
     variables: { characterId: id },
   });
@@ -33,12 +40,14 @@ export default async function Graph({
       {data.character && (
         <h2 className="text-lg font-bold">{data.character.name}</h2>
       )}
-      <Image
-        src={data.character.image}
-        alt={data.character.name}
-        width={200}
-        height={200}
-      />
+      {data?.character?.image && (
+        <Image
+          src={data.character.image}
+          alt={data.character.name ?? "Unknown Character"}
+          width={200}
+          height={200}
+        />
+      )}
       {data.character && <div>{data.character.species}</div>}
       {data.character && <div>{data.character.status}</div>}
       <div className="flex gap-4 mt-4">
