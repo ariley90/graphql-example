@@ -7,7 +7,7 @@
 - storybook
 - playwright
 - pino logger
-- eslint
+- eslint ✅
 - fake data ✅
 - feature with included mock
 - fragments
@@ -18,3 +18,5 @@
 - convert pagination to frgament and share with another route
 - make a combined view of the entities
 - move to features
+- zod
+- preload query
