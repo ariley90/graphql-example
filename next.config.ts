@@ -5,7 +5,7 @@ import  withBundleAnalyzer from '@next/bundle-analyzer';
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    remotePatterns: [new URL('https://rickandmortyapi.com/**')],
+    remotePatterns: [new URL('https://rickandmortyapi.com/**'), new URL('https://picsum.photos/**'),],
   },
 };
 

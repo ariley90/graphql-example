@@ -11,21 +11,53 @@ const config: CodegenConfig = {
         content:'/* eslint-disable @typescript-eslint/no-explicit-any */'
       }
     },
-    'src/testing/generated/staticMockDataCreator.ts': {
-      plugins: ['add','typescript-mock-data'],
-      config:{
-        typesFile:'@/generated/types.ts',
-        listElementCount: 3,
-        prefix: 'createStaticMock',
-        content:'/* eslint-disable @typescript-eslint/no-unused-vars */'
-      }
-    },
+    // 'src/testing/generated/staticMockDataCreator.ts': {
+    //   plugins: ['add','typescript-mock-data'],
+    //   config:{
+    //     typesFile:'@/generated/types.ts',
+    //      listElementCount: 3,
+    //     addTypename:true,
+    //     terminateCircularRelationships: true,
+    //     fieldGeneration:{
+    //       Character:{
+    //         name: 'person.fullName',
+    //         image: 'image.url',
+    //         species: {
+    //           generator: 'helpers.arrayElement',
+    //           arguments: [["Human", "Alien", "Robot", "Mythological Creature"]],
+    //         },
+    //         status: {
+    //           generator: 'helpers.arrayElement',
+    //           arguments: [["Alive", "Dead", "unknown"]],
+    //         },
+    //       }
+    //     },
+    //     prefix: 'createStaticMock',
+    //     content:'/* eslint-disable @typescript-eslint/no-unused-vars */'
+    //   }
+    // },
     'src/testing/generated/dynnamicMockDataCreator.ts': {
       plugins: ['add','typescript-mock-data'],
       config:{
         typesFile:'@/generated/types.ts',
         listElementCount: 3,
         dynamicValues:true,
+        addTypename:true,
+        terminateCircularRelationships: true,
+        fieldGeneration:{
+          Character:{
+            name: 'person.fullName',
+            image: 'image.urlPicsumPhotos',
+            species: {
+              generator: 'helpers.arrayElement',
+              arguments: [["Human", "Alien", "Robot", "Mythological Creature"]],
+            },
+            status: {
+              generator: 'helpers.arrayElement',
+              arguments: [["Alive", "Dead", "unknown"]],
+            },
+          }
+        },
         prefix: 'createDynamicMock',
         content:'/* eslint-disable @typescript-eslint/no-unused-vars */'
       }
@@ -46,23 +78,23 @@ const config: CodegenConfig = {
 
       }
     },
-    'src/': {
-      preset: 'near-operation-file',
-      presetConfig: { folder:'generated',fileName:'graph', extension: '.types.ts', baseTypesPath: 'generated/types.ts' },
-      plugins: ['typescript-operations', ],
-      config: { 
-        documentMode: 'documentNode',
-     },
-    },
-    './src/': {
-      preset: 'near-operation-file',
-      presetConfig: { folder:'generated', fileName:'graph', extension: '.mswHandler.ts', baseTypesPath: 'generated/types.ts' },
-      plugins: ['typescript-operations', 'typescript-msw'],
-      config: { 
-        noExport: true,
-        documentMode: 'documentNode',
-     },
-    },
+    // 'src/': {
+    //   preset: 'near-operation-file',
+    //   presetConfig: { folder:'generated',fileName:'graph', extension: '.types.ts', baseTypesPath: 'generated/types.ts' },
+    //   plugins: ['typescript-operations', ],
+    //   config: { 
+    //     documentMode: 'documentNode',
+    //  },
+    // },
+    // './src/': {
+    //   preset: 'near-operation-file',
+    //   presetConfig: { folder:'generated', fileName:'graph', extension: '.mswHandler.ts', baseTypesPath: 'generated/types.ts' },
+    //   plugins: ['typescript-operations', 'typescript-msw'],
+    //   config: { 
+    //     noExport: true,
+    //     documentMode: 'documentNode',
+    //  },
+    // },
     './src/gql/': {
       preset: 'client',
       presetConfig: {

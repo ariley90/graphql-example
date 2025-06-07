@@ -4,33 +4,42 @@ import { Character, Characters, Episode, Episodes, FilterCharacter, FilterEpisod
 
 faker.seed(0);
 
-export const createDynamicMockCharacter = (overrides?: Partial<Character>): Character => {
+export const createDynamicMockCharacter = (overrides?: Partial<Character>, _relationshipsToOmit: Set<string> = new Set()): { __typename: 'Character' } & Character => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('Character');
     return {
+        __typename: 'Character',
         created: overrides && overrides.hasOwnProperty('created') ? overrides.created! : faker.lorem.word(),
-        episode: overrides && overrides.hasOwnProperty('episode') ? overrides.episode! : [createDynamicMockEpisode(), createDynamicMockEpisode(), createDynamicMockEpisode()],
+        episode: overrides && overrides.hasOwnProperty('episode') ? overrides.episode! : [relationshipsToOmit.has('Episode') ? {} as Episode : createDynamicMockEpisode({}, relationshipsToOmit), relationshipsToOmit.has('Episode') ? {} as Episode : createDynamicMockEpisode({}, relationshipsToOmit), relationshipsToOmit.has('Episode') ? {} as Episode : createDynamicMockEpisode({}, relationshipsToOmit)],
         gender: overrides && overrides.hasOwnProperty('gender') ? overrides.gender! : faker.lorem.word(),
         id: overrides && overrides.hasOwnProperty('id') ? overrides.id! : faker.string.uuid(),
-        image: overrides && overrides.hasOwnProperty('image') ? overrides.image! : faker.lorem.word(),
-        location: overrides && overrides.hasOwnProperty('location') ? overrides.location! : createDynamicMockLocation(),
-        name: overrides && overrides.hasOwnProperty('name') ? overrides.name! : faker.lorem.word(),
-        origin: overrides && overrides.hasOwnProperty('origin') ? overrides.origin! : createDynamicMockLocation(),
-        species: overrides && overrides.hasOwnProperty('species') ? overrides.species! : faker.lorem.word(),
-        status: overrides && overrides.hasOwnProperty('status') ? overrides.status! : faker.lorem.word(),
+        image: overrides && overrides.hasOwnProperty('image') ? overrides.image! : faker['image']['urlPicsumPhotos'](),
+        location: overrides && overrides.hasOwnProperty('location') ? overrides.location! : relationshipsToOmit.has('Location') ? {} as Location : createDynamicMockLocation({}, relationshipsToOmit),
+        name: overrides && overrides.hasOwnProperty('name') ? overrides.name! : faker['person']['fullName'](),
+        origin: overrides && overrides.hasOwnProperty('origin') ? overrides.origin! : relationshipsToOmit.has('Location') ? {} as Location : createDynamicMockLocation({}, relationshipsToOmit),
+        species: overrides && overrides.hasOwnProperty('species') ? overrides.species! : faker['helpers']['arrayElement'](...[["Human","Alien","Robot","Mythological Creature"]]),
+        status: overrides && overrides.hasOwnProperty('status') ? overrides.status! : faker['helpers']['arrayElement'](...[["Alive","Dead","unknown"]]),
         type: overrides && overrides.hasOwnProperty('type') ? overrides.type! : faker.lorem.word(),
     };
 };
 
-export const createDynamicMockCharacters = (overrides?: Partial<Characters>): Characters => {
+export const createDynamicMockCharacters = (overrides?: Partial<Characters>, _relationshipsToOmit: Set<string> = new Set()): { __typename: 'Characters' } & Characters => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('Characters');
     return {
-        info: overrides && overrides.hasOwnProperty('info') ? overrides.info! : createDynamicMockInfo(),
-        results: overrides && overrides.hasOwnProperty('results') ? overrides.results! : [createDynamicMockCharacter(), createDynamicMockCharacter(), createDynamicMockCharacter()],
+        __typename: 'Characters',
+        info: overrides && overrides.hasOwnProperty('info') ? overrides.info! : relationshipsToOmit.has('Info') ? {} as Info : createDynamicMockInfo({}, relationshipsToOmit),
+        results: overrides && overrides.hasOwnProperty('results') ? overrides.results! : [relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit), relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit), relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit)],
     };
 };
 
-export const createDynamicMockEpisode = (overrides?: Partial<Episode>): Episode => {
+export const createDynamicMockEpisode = (overrides?: Partial<Episode>, _relationshipsToOmit: Set<string> = new Set()): { __typename: 'Episode' } & Episode => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('Episode');
     return {
+        __typename: 'Episode',
         air_date: overrides && overrides.hasOwnProperty('air_date') ? overrides.air_date! : faker.lorem.word(),
-        characters: overrides && overrides.hasOwnProperty('characters') ? overrides.characters! : [createDynamicMockCharacter(), createDynamicMockCharacter(), createDynamicMockCharacter()],
+        characters: overrides && overrides.hasOwnProperty('characters') ? overrides.characters! : [relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit), relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit), relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit)],
         created: overrides && overrides.hasOwnProperty('created') ? overrides.created! : faker.lorem.word(),
         episode: overrides && overrides.hasOwnProperty('episode') ? overrides.episode! : faker.lorem.word(),
         id: overrides && overrides.hasOwnProperty('id') ? overrides.id! : faker.string.uuid(),
@@ -38,14 +47,19 @@ export const createDynamicMockEpisode = (overrides?: Partial<Episode>): Episode 
     };
 };
 
-export const createDynamicMockEpisodes = (overrides?: Partial<Episodes>): Episodes => {
+export const createDynamicMockEpisodes = (overrides?: Partial<Episodes>, _relationshipsToOmit: Set<string> = new Set()): { __typename: 'Episodes' } & Episodes => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('Episodes');
     return {
-        info: overrides && overrides.hasOwnProperty('info') ? overrides.info! : createDynamicMockInfo(),
-        results: overrides && overrides.hasOwnProperty('results') ? overrides.results! : [createDynamicMockEpisode(), createDynamicMockEpisode(), createDynamicMockEpisode()],
+        __typename: 'Episodes',
+        info: overrides && overrides.hasOwnProperty('info') ? overrides.info! : relationshipsToOmit.has('Info') ? {} as Info : createDynamicMockInfo({}, relationshipsToOmit),
+        results: overrides && overrides.hasOwnProperty('results') ? overrides.results! : [relationshipsToOmit.has('Episode') ? {} as Episode : createDynamicMockEpisode({}, relationshipsToOmit), relationshipsToOmit.has('Episode') ? {} as Episode : createDynamicMockEpisode({}, relationshipsToOmit), relationshipsToOmit.has('Episode') ? {} as Episode : createDynamicMockEpisode({}, relationshipsToOmit)],
     };
 };
 
-export const createDynamicMockFilterCharacter = (overrides?: Partial<FilterCharacter>): FilterCharacter => {
+export const createDynamicMockFilterCharacter = (overrides?: Partial<FilterCharacter>, _relationshipsToOmit: Set<string> = new Set()): FilterCharacter => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('FilterCharacter');
     return {
         gender: overrides && overrides.hasOwnProperty('gender') ? overrides.gender! : faker.lorem.word(),
         name: overrides && overrides.hasOwnProperty('name') ? overrides.name! : faker.lorem.word(),
@@ -55,14 +69,18 @@ export const createDynamicMockFilterCharacter = (overrides?: Partial<FilterChara
     };
 };
 
-export const createDynamicMockFilterEpisode = (overrides?: Partial<FilterEpisode>): FilterEpisode => {
+export const createDynamicMockFilterEpisode = (overrides?: Partial<FilterEpisode>, _relationshipsToOmit: Set<string> = new Set()): FilterEpisode => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('FilterEpisode');
     return {
         episode: overrides && overrides.hasOwnProperty('episode') ? overrides.episode! : faker.lorem.word(),
         name: overrides && overrides.hasOwnProperty('name') ? overrides.name! : faker.lorem.word(),
     };
 };
 
-export const createDynamicMockFilterLocation = (overrides?: Partial<FilterLocation>): FilterLocation => {
+export const createDynamicMockFilterLocation = (overrides?: Partial<FilterLocation>, _relationshipsToOmit: Set<string> = new Set()): FilterLocation => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('FilterLocation');
     return {
         dimension: overrides && overrides.hasOwnProperty('dimension') ? overrides.dimension! : faker.lorem.word(),
         name: overrides && overrides.hasOwnProperty('name') ? overrides.name! : faker.lorem.word(),
@@ -70,8 +88,11 @@ export const createDynamicMockFilterLocation = (overrides?: Partial<FilterLocati
     };
 };
 
-export const createDynamicMockInfo = (overrides?: Partial<Info>): Info => {
+export const createDynamicMockInfo = (overrides?: Partial<Info>, _relationshipsToOmit: Set<string> = new Set()): { __typename: 'Info' } & Info => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('Info');
     return {
+        __typename: 'Info',
         count: overrides && overrides.hasOwnProperty('count') ? overrides.count! : faker.number.int({ min: 0, max: 9999 }),
         next: overrides && overrides.hasOwnProperty('next') ? overrides.next! : faker.number.int({ min: 0, max: 9999 }),
         pages: overrides && overrides.hasOwnProperty('pages') ? overrides.pages! : faker.number.int({ min: 0, max: 9999 }),
@@ -79,35 +100,44 @@ export const createDynamicMockInfo = (overrides?: Partial<Info>): Info => {
     };
 };
 
-export const createDynamicMockLocation = (overrides?: Partial<Location>): Location => {
+export const createDynamicMockLocation = (overrides?: Partial<Location>, _relationshipsToOmit: Set<string> = new Set()): { __typename: 'Location' } & Location => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('Location');
     return {
+        __typename: 'Location',
         created: overrides && overrides.hasOwnProperty('created') ? overrides.created! : faker.lorem.word(),
         dimension: overrides && overrides.hasOwnProperty('dimension') ? overrides.dimension! : faker.lorem.word(),
         id: overrides && overrides.hasOwnProperty('id') ? overrides.id! : faker.string.uuid(),
         name: overrides && overrides.hasOwnProperty('name') ? overrides.name! : faker.lorem.word(),
-        residents: overrides && overrides.hasOwnProperty('residents') ? overrides.residents! : [createDynamicMockCharacter(), createDynamicMockCharacter(), createDynamicMockCharacter()],
+        residents: overrides && overrides.hasOwnProperty('residents') ? overrides.residents! : [relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit), relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit), relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit)],
         type: overrides && overrides.hasOwnProperty('type') ? overrides.type! : faker.lorem.word(),
     };
 };
 
-export const createDynamicMockLocations = (overrides?: Partial<Locations>): Locations => {
+export const createDynamicMockLocations = (overrides?: Partial<Locations>, _relationshipsToOmit: Set<string> = new Set()): { __typename: 'Locations' } & Locations => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('Locations');
     return {
-        info: overrides && overrides.hasOwnProperty('info') ? overrides.info! : createDynamicMockInfo(),
-        results: overrides && overrides.hasOwnProperty('results') ? overrides.results! : [createDynamicMockLocation(), createDynamicMockLocation(), createDynamicMockLocation()],
+        __typename: 'Locations',
+        info: overrides && overrides.hasOwnProperty('info') ? overrides.info! : relationshipsToOmit.has('Info') ? {} as Info : createDynamicMockInfo({}, relationshipsToOmit),
+        results: overrides && overrides.hasOwnProperty('results') ? overrides.results! : [relationshipsToOmit.has('Location') ? {} as Location : createDynamicMockLocation({}, relationshipsToOmit), relationshipsToOmit.has('Location') ? {} as Location : createDynamicMockLocation({}, relationshipsToOmit), relationshipsToOmit.has('Location') ? {} as Location : createDynamicMockLocation({}, relationshipsToOmit)],
     };
 };
 
-export const createDynamicMockQuery = (overrides?: Partial<Query>): Query => {
+export const createDynamicMockQuery = (overrides?: Partial<Query>, _relationshipsToOmit: Set<string> = new Set()): { __typename: 'Query' } & Query => {
+    const relationshipsToOmit: Set<string> = new Set(_relationshipsToOmit);
+    relationshipsToOmit.add('Query');
     return {
-        character: overrides && overrides.hasOwnProperty('character') ? overrides.character! : createDynamicMockCharacter(),
-        characters: overrides && overrides.hasOwnProperty('characters') ? overrides.characters! : createDynamicMockCharacters(),
-        charactersByIds: overrides && overrides.hasOwnProperty('charactersByIds') ? overrides.charactersByIds! : [createDynamicMockCharacter(), createDynamicMockCharacter(), createDynamicMockCharacter()],
-        episode: overrides && overrides.hasOwnProperty('episode') ? overrides.episode! : createDynamicMockEpisode(),
-        episodes: overrides && overrides.hasOwnProperty('episodes') ? overrides.episodes! : createDynamicMockEpisodes(),
-        episodesByIds: overrides && overrides.hasOwnProperty('episodesByIds') ? overrides.episodesByIds! : [createDynamicMockEpisode(), createDynamicMockEpisode(), createDynamicMockEpisode()],
-        location: overrides && overrides.hasOwnProperty('location') ? overrides.location! : createDynamicMockLocation(),
-        locations: overrides && overrides.hasOwnProperty('locations') ? overrides.locations! : createDynamicMockLocations(),
-        locationsByIds: overrides && overrides.hasOwnProperty('locationsByIds') ? overrides.locationsByIds! : [createDynamicMockLocation(), createDynamicMockLocation(), createDynamicMockLocation()],
+        __typename: 'Query',
+        character: overrides && overrides.hasOwnProperty('character') ? overrides.character! : relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit),
+        characters: overrides && overrides.hasOwnProperty('characters') ? overrides.characters! : relationshipsToOmit.has('Characters') ? {} as Characters : createDynamicMockCharacters({}, relationshipsToOmit),
+        charactersByIds: overrides && overrides.hasOwnProperty('charactersByIds') ? overrides.charactersByIds! : [relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit), relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit), relationshipsToOmit.has('Character') ? {} as Character : createDynamicMockCharacter({}, relationshipsToOmit)],
+        episode: overrides && overrides.hasOwnProperty('episode') ? overrides.episode! : relationshipsToOmit.has('Episode') ? {} as Episode : createDynamicMockEpisode({}, relationshipsToOmit),
+        episodes: overrides && overrides.hasOwnProperty('episodes') ? overrides.episodes! : relationshipsToOmit.has('Episodes') ? {} as Episodes : createDynamicMockEpisodes({}, relationshipsToOmit),
+        episodesByIds: overrides && overrides.hasOwnProperty('episodesByIds') ? overrides.episodesByIds! : [relationshipsToOmit.has('Episode') ? {} as Episode : createDynamicMockEpisode({}, relationshipsToOmit), relationshipsToOmit.has('Episode') ? {} as Episode : createDynamicMockEpisode({}, relationshipsToOmit), relationshipsToOmit.has('Episode') ? {} as Episode : createDynamicMockEpisode({}, relationshipsToOmit)],
+        location: overrides && overrides.hasOwnProperty('location') ? overrides.location! : relationshipsToOmit.has('Location') ? {} as Location : createDynamicMockLocation({}, relationshipsToOmit),
+        locations: overrides && overrides.hasOwnProperty('locations') ? overrides.locations! : relationshipsToOmit.has('Locations') ? {} as Locations : createDynamicMockLocations({}, relationshipsToOmit),
+        locationsByIds: overrides && overrides.hasOwnProperty('locationsByIds') ? overrides.locationsByIds! : [relationshipsToOmit.has('Location') ? {} as Location : createDynamicMockLocation({}, relationshipsToOmit), relationshipsToOmit.has('Location') ? {} as Location : createDynamicMockLocation({}, relationshipsToOmit), relationshipsToOmit.has('Location') ? {} as Location : createDynamicMockLocation({}, relationshipsToOmit)],
     };
 };
 
