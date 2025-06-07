@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { Suspense } from "react";
 import { EpisodeQuery, EpisodeQueryVariables } from "@/gql/graphql";
 import { graphql } from "@/gql";
+import { Loading } from "@/components/loading";
 const query = graphql(`
   query Episode($episodeId: ID!) {
     episode(id: $episodeId) {
@@ -50,7 +51,7 @@ export default function Episode() {
   return (
     <div className="justify-items-center  p-8 pb-20 gap-4 sm:p-20 ">
       <h1>EPISODE</h1>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <EpisodeCard id={id} />
       </Suspense>
     </div>

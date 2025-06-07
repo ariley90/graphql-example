@@ -8,6 +8,7 @@ import { LocationQuery, LocationQueryVariables } from "@/gql/graphql";
 import { paths } from "@/config/paths";
 import Link from "next/link";
 import { graphql } from "@/gql";
+import { Loading } from "@/components/loading";
 
 const query = graphql(`
   query Location($locationId: ID!) {
@@ -76,7 +77,7 @@ export default function Location() {
   return (
     <div className="justify-items-center  p-8 pb-20 gap-4 sm:p-20 ">
       <h1>LOCATION</h1>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <LocationCard id={id} />
       </Suspense>
     </div>

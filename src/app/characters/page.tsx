@@ -6,6 +6,7 @@ import { Suspense, use } from "react";
 import { CharactersQuery, CharactersQueryVariables } from "@/gql/graphql";
 import { graphql } from "@/gql/gql";
 import { Pagination } from "@/components/pagination";
+import { Loading } from "@/components/loading";
 
 const query = graphql(`
   query Characters($page: Int) {
@@ -60,7 +61,7 @@ export default function Characters({
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <h1>Characters</h1>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading />}>
             <List page={Number(page)} />
           </Suspense>
         </div>
