@@ -1,20 +1,14 @@
-import { paths } from "@/config/paths";
 import { getClient } from "@/lib/apolloClient";
 
-import Image from "next/image";
-import Link from "next/link";
 import { CharacterQuery, CharacterQueryVariables } from "@/gql/graphql";
 import { Metadata } from "next";
 import { graphql } from "@/gql/gql";
+import { CharacterProfile } from "@/features/characters";
 
 const query = graphql(`
   query Character($characterId: ID!) {
     character(id: $characterId) {
-      id
-      image
-      name
-      species
-      status
+      ...CharacterProfile
     }
   }
 `);
@@ -39,26 +33,8 @@ export default async function Graph({
   });
   return (
     <div className="justify-items-center  p-8 pb-20 gap-4 sm:p-20 ">
-      <h1>HIYA</h1>
-      {data.character && (
-        <h2 className="text-lg font-bold">{data.character.name}</h2>
-      )}
-      {data?.character?.image && (
-        <Image
-          src={data.character.image}
-          alt={data.character.name ?? "Unknown Character"}
-          width={200}
-          height={200}
-        />
-      )}
-      {data.character && <div>{data.character.species}</div>}
-      {data.character && <div>{data.character.status}</div>}
-      <div className="flex gap-4 mt-4">
-        <Link href={paths.character.getHref(Number(id) + 1)}>Next</Link>
-      </div>
-      <div>
-        <Link href={paths.character.getHref(Number(id) - 1)}>Previous</Link>
-      </div>
+      <h1>CHARACTER</h1>
+      {data?.character && <CharacterProfile character={data.character} />}
     </div>
   );
 }

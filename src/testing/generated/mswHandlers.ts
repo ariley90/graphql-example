@@ -209,12 +209,23 @@ type CharacterQueryVariables = Exact<{
 
 type CharacterQuery = { __typename?: 'Query', character?: { __typename?: 'Character', id?: string | null, image?: string | null, name?: string | null, species?: string | null, status?: string | null } | null };
 
+type EpisodesQueryVariables = Exact<{
+  page?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+type EpisodesQuery = { __typename?: 'Query', episodes?: { __typename?: 'Episodes', info?: { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null } | null, results?: Array<{ __typename?: 'Episode', id?: string | null, name?: string | null } | null> | null } | null };
+
+type PaginationFragment = { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null };
+
 type CharactersQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
 type CharactersQuery = { __typename?: 'Query', characters?: { __typename?: 'Characters', info?: { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null } | null, results?: Array<{ __typename?: 'Character', name?: string | null, id?: string | null } | null> | null } | null };
+
+type CharacterProfileFragment = { __typename?: 'Character', id?: string | null, image?: string | null, name?: string | null, species?: string | null, status?: string | null };
 
 type EpisodeQueryVariables = Exact<{
   episodeId: Scalars['ID']['input'];
@@ -223,20 +234,6 @@ type EpisodeQueryVariables = Exact<{
 
 type EpisodeQuery = { __typename?: 'Query', episode?: { __typename?: 'Episode', air_date?: string | null, created?: string | null, episode?: string | null, id?: string | null, name?: string | null } | null };
 
-type EpisodesQueryVariables = Exact<{
-  page?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-
-type EpisodesQuery = { __typename?: 'Query', episodes?: { __typename?: 'Episodes', info?: { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null } | null, results?: Array<{ __typename?: 'Episode', id?: string | null, name?: string | null } | null> | null } | null };
-
-type LocationQueryVariables = Exact<{
-  locationId: Scalars['ID']['input'];
-}>;
-
-
-type LocationQuery = { __typename?: 'Query', location?: { __typename?: 'Location', name?: string | null, dimension?: string | null, id?: string | null, residents: Array<{ __typename?: 'Character', name?: string | null, id?: string | null, image?: string | null } | null> } | null };
-
 type LocationsQueryVariables = Exact<{
   page?: InputMaybe<Scalars['Int']['input']>;
 }>;
@@ -244,7 +241,12 @@ type LocationsQueryVariables = Exact<{
 
 type LocationsQuery = { __typename?: 'Query', locations?: { __typename?: 'Locations', info?: { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null } | null, results?: Array<{ __typename?: 'Location', id?: string | null, name?: string | null } | null> | null } | null };
 
-type PaginationFragment = { __typename?: 'Info', count?: number | null, next?: number | null, pages?: number | null, prev?: number | null };
+type LocationQueryVariables = Exact<{
+  locationId: Scalars['ID']['input'];
+}>;
+
+
+type LocationQuery = { __typename?: 'Query', location?: { __typename?: 'Location', name?: string | null, dimension?: string | null, id?: string | null, residents: Array<{ __typename?: 'Character', name?: string | null, id?: string | null, image?: string | null } | null> } | null };
 
 
 /**
@@ -265,6 +267,28 @@ type PaginationFragment = { __typename?: 'Info', count?: number | null, next?: n
 export const mockCharacterQuery = (resolver: GraphQLResponseResolver<CharacterQuery, CharacterQueryVariables>, options?: RequestHandlerOptions) =>
   graphql.query<CharacterQuery, CharacterQueryVariables>(
     'Character',
+    resolver,
+    options
+  )
+
+/**
+ * @param resolver A function that accepts [resolver arguments](https://mswjs.io/docs/api/graphql#resolver-argument) and must always return the instruction on what to do with the intercepted request. ([see more](https://mswjs.io/docs/concepts/response-resolver#resolver-instructions))
+ * @param options Options object to customize the behavior of the mock. ([see more](https://mswjs.io/docs/api/graphql#handler-options))
+ * @see https://mswjs.io/docs/basics/response-resolver
+ * @example
+ * mockEpisodesQuery(
+ *   ({ query, variables }) => {
+ *     const { page } = variables;
+ *     return HttpResponse.json({
+ *       data: { episodes }
+ *     })
+ *   },
+ *   requestOptions
+ * )
+ */
+export const mockEpisodesQuery = (resolver: GraphQLResponseResolver<EpisodesQuery, EpisodesQueryVariables>, options?: RequestHandlerOptions) =>
+  graphql.query<EpisodesQuery, EpisodesQueryVariables>(
+    'Episodes',
     resolver,
     options
   )
@@ -318,19 +342,19 @@ export const mockEpisodeQuery = (resolver: GraphQLResponseResolver<EpisodeQuery,
  * @param options Options object to customize the behavior of the mock. ([see more](https://mswjs.io/docs/api/graphql#handler-options))
  * @see https://mswjs.io/docs/basics/response-resolver
  * @example
- * mockEpisodesQuery(
+ * mockLocationsQuery(
  *   ({ query, variables }) => {
  *     const { page } = variables;
  *     return HttpResponse.json({
- *       data: { episodes }
+ *       data: { locations }
  *     })
  *   },
  *   requestOptions
  * )
  */
-export const mockEpisodesQuery = (resolver: GraphQLResponseResolver<EpisodesQuery, EpisodesQueryVariables>, options?: RequestHandlerOptions) =>
-  graphql.query<EpisodesQuery, EpisodesQueryVariables>(
-    'Episodes',
+export const mockLocationsQuery = (resolver: GraphQLResponseResolver<LocationsQuery, LocationsQueryVariables>, options?: RequestHandlerOptions) =>
+  graphql.query<LocationsQuery, LocationsQueryVariables>(
+    'Locations',
     resolver,
     options
   )
@@ -353,28 +377,6 @@ export const mockEpisodesQuery = (resolver: GraphQLResponseResolver<EpisodesQuer
 export const mockLocationQuery = (resolver: GraphQLResponseResolver<LocationQuery, LocationQueryVariables>, options?: RequestHandlerOptions) =>
   graphql.query<LocationQuery, LocationQueryVariables>(
     'Location',
-    resolver,
-    options
-  )
-
-/**
- * @param resolver A function that accepts [resolver arguments](https://mswjs.io/docs/api/graphql#resolver-argument) and must always return the instruction on what to do with the intercepted request. ([see more](https://mswjs.io/docs/concepts/response-resolver#resolver-instructions))
- * @param options Options object to customize the behavior of the mock. ([see more](https://mswjs.io/docs/api/graphql#handler-options))
- * @see https://mswjs.io/docs/basics/response-resolver
- * @example
- * mockLocationsQuery(
- *   ({ query, variables }) => {
- *     const { page } = variables;
- *     return HttpResponse.json({
- *       data: { locations }
- *     })
- *   },
- *   requestOptions
- * )
- */
-export const mockLocationsQuery = (resolver: GraphQLResponseResolver<LocationsQuery, LocationsQueryVariables>, options?: RequestHandlerOptions) =>
-  graphql.query<LocationsQuery, LocationsQueryVariables>(
-    'Locations',
     resolver,
     options
   )

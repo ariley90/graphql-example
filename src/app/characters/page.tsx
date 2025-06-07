@@ -1,54 +1,7 @@
 "use client";
-import { paths } from "@/config/paths";
-import { useSuspenseQuery } from "@apollo/client";
-import Link from "next/link";
 import { Suspense, use } from "react";
-import { CharactersQuery, CharactersQueryVariables } from "@/gql/graphql";
-import { graphql } from "@/gql/gql";
-import { Pagination } from "@/components/pagination";
 import { Loading } from "@/components/loading";
-
-const query = graphql(`
-  query Characters($page: Int) {
-    characters(page: $page) {
-      info {
-        ...Pagination
-      }
-      results {
-        name
-        id
-      }
-    }
-  }
-`);
-function List({ page }: { page: number }) {
-  const { data } = useSuspenseQuery<CharactersQuery, CharactersQueryVariables>(
-    query,
-    {
-      variables: { page },
-    }
-  );
-
-  return (
-    <div>
-      <ol>
-        {data?.characters?.results?.map((character) => (
-          <li key={character?.id}>
-            <Link href={paths.character.getHref(character?.id ?? 0)}>
-              {character?.name}
-            </Link>
-          </li>
-        ))}
-      </ol>
-      {data?.characters?.info && (
-        <Pagination
-          info={data.characters.info}
-          href={paths.characters.getHref}
-        />
-      )}
-    </div>
-  );
-}
+import { CharacterList } from "@/features/characters";
 
 export default function Characters({
   searchParams,
@@ -62,7 +15,7 @@ export default function Characters({
         <h1>Characters</h1>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <Suspense fallback={<Loading />}>
-            <List page={Number(page)} />
+            <CharacterList page={Number(page)} />
           </Suspense>
         </div>
       </main>

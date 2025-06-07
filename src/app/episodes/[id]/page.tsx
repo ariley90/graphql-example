@@ -1,50 +1,9 @@
 "use client";
 
-import { useSuspenseQuery } from "@apollo/client";
 import { useParams } from "next/navigation";
 import { Suspense } from "react";
-import { EpisodeQuery, EpisodeQueryVariables } from "@/gql/graphql";
-import { graphql } from "@/gql";
 import { Loading } from "@/components/loading";
-const query = graphql(`
-  query Episode($episodeId: ID!) {
-    episode(id: $episodeId) {
-      air_date
-      created
-      episode
-      id
-      name
-    }
-  }
-`);
-
-function EpisodeCard({ id }: { id: string }) {
-  const { data } = useSuspenseQuery<EpisodeQuery, EpisodeQueryVariables>(
-    query,
-    {
-      variables: { episodeId: id },
-    }
-  );
-  if (!data?.episode) {
-    return (
-      <div className="flex flex-col items-center">
-        <h2 className="text-lg font-bold">Episode Details</h2>
-        <p className="text-sm">No episode data found.</p>
-      </div>
-    );
-  }
-
-  const { name, episode, air_date, created } = data.episode;
-
-  return (
-    <div className="flex flex-col items-center">
-      <h2 className="text-lg font-bold">{name}</h2>
-      <p className="text-sm">Episode: {episode}</p>
-      <p className="text-sm">Air Date: {air_date}</p>
-      <p className="text-sm">Created: {created}</p>
-    </div>
-  );
-}
+import { EpisodeCard } from "@/features/episodes";
 
 export default function Episode() {
   const { id } = useParams<{ id: string }>();
