@@ -1,10 +1,11 @@
 "use client";
 
-import { gql, useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import { useParams } from "next/navigation";
 import { Suspense } from "react";
-import { EpisodeQuery, EpisodeQueryVariables } from "./generated/graph.types";
-const query = gql`
+import { EpisodeQuery, EpisodeQueryVariables } from "@/gql/graphql";
+import { graphql } from "@/gql";
+const query = graphql(`
   query Episode($episodeId: ID!) {
     episode(id: $episodeId) {
       air_date
@@ -14,7 +15,7 @@ const query = gql`
       name
     }
   }
-`;
+`);
 
 function EpisodeCard({ id }: { id: string }) {
   const { data } = useSuspenseQuery<EpisodeQuery, EpisodeQueryVariables>(

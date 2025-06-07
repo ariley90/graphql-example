@@ -1,16 +1,13 @@
 import { paths } from "@/config/paths";
 import { getClient } from "@/lib/apolloClient";
 
-import { gql } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  CharacterQuery,
-  CharacterQueryVariables,
-} from "./generated/graph.types";
+import { CharacterQuery, CharacterQueryVariables } from "@/gql/graphql";
 import { Metadata } from "next";
+import { graphql } from "@/gql/gql";
 
-const query = gql`
+const query = graphql(`
   query Character($characterId: ID!) {
     character(id: $characterId) {
       id
@@ -20,7 +17,7 @@ const query = gql`
       status
     }
   }
-`;
+`);
 
 export const metadata: Metadata = {
   title: "Rick and Morty Index - Characters",

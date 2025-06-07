@@ -1,14 +1,15 @@
 "use client";
 
-import { gql, useSuspenseQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Suspense } from "react";
-import { LocationQuery, LocationQueryVariables } from "./generated/graph.types";
+import { LocationQuery, LocationQueryVariables } from "@/gql/graphql";
 import { paths } from "@/config/paths";
 import Link from "next/link";
+import { graphql } from "@/gql";
 
-const query = gql`
+const query = graphql(`
   query Location($locationId: ID!) {
     location(id: $locationId) {
       name
@@ -21,7 +22,7 @@ const query = gql`
       }
     }
   }
-`;
+`);
 
 function LocationCard({ id }: { id: string }) {
   const { data } = useSuspenseQuery<LocationQuery, LocationQueryVariables>(
