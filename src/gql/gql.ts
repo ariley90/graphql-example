@@ -20,8 +20,8 @@ type Documents = {
     "\n  query Characters($page: Int) {\n    characters(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        name\n        id\n      }\n    }\n  }\n": typeof types.CharactersDocument,
     "\n  fragment CharacterProfile on Character {\n    id\n    image\n    name\n    species\n    status\n  }\n": typeof types.CharacterProfileFragmentDoc,
     "\n  query Episode($episodeId: ID!) {\n    episode(id: $episodeId) {\n      air_date\n      created\n      episode\n      id\n      name\n    }\n  }\n": typeof types.EpisodeDocument,
-    "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n": typeof types.LocationsDocument,
     "\n  query Location($locationId: ID!) {\n    location(id: $locationId) {\n      name\n      dimension\n      id\n      residents {\n        name\n        id\n        image\n      }\n    }\n  }\n": typeof types.LocationDocument,
+    "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n": typeof types.LocationsDocument,
 };
 const documents: Documents = {
     "\n  query Character($characterId: ID!) {\n    character(id: $characterId) {\n      ...CharacterProfile\n    }\n  }\n": types.CharacterDocument,
@@ -30,8 +30,8 @@ const documents: Documents = {
     "\n  query Characters($page: Int) {\n    characters(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        name\n        id\n      }\n    }\n  }\n": types.CharactersDocument,
     "\n  fragment CharacterProfile on Character {\n    id\n    image\n    name\n    species\n    status\n  }\n": types.CharacterProfileFragmentDoc,
     "\n  query Episode($episodeId: ID!) {\n    episode(id: $episodeId) {\n      air_date\n      created\n      episode\n      id\n      name\n    }\n  }\n": types.EpisodeDocument,
-    "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n": types.LocationsDocument,
     "\n  query Location($locationId: ID!) {\n    location(id: $locationId) {\n      name\n      dimension\n      id\n      residents {\n        name\n        id\n        image\n      }\n    }\n  }\n": types.LocationDocument,
+    "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n": types.LocationsDocument,
 };
 
 /**
@@ -75,11 +75,11 @@ export function graphql(source: "\n  query Episode($episodeId: ID!) {\n    episo
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query Location($locationId: ID!) {\n    location(id: $locationId) {\n      name\n      dimension\n      id\n      residents {\n        name\n        id\n        image\n      }\n    }\n  }\n"): (typeof documents)["\n  query Location($locationId: ID!) {\n    location(id: $locationId) {\n      name\n      dimension\n      id\n      residents {\n        name\n        id\n        image\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Location($locationId: ID!) {\n    location(id: $locationId) {\n      name\n      dimension\n      id\n      residents {\n        name\n        id\n        image\n      }\n    }\n  }\n"): (typeof documents)["\n  query Location($locationId: ID!) {\n    location(id: $locationId) {\n      name\n      dimension\n      id\n      residents {\n        name\n        id\n        image\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  query Locations($page: Int) {\n    locations(page: $page) {\n      info {\n        ...Pagination\n      }\n      results {\n        id\n        name\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
