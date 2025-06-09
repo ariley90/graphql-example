@@ -1,4 +1,4 @@
-# Beachproof React - Rick and Morty Index
+# Graphproof React - Rick and Morty Index
 
 ## TO-DO
 
@@ -8,6 +8,7 @@
 - msw ✅
 - plop generator 🚧
 - move to /features 🚧
+
 - fragments ✅
 - storybook
 - playwright
