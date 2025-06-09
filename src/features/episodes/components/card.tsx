@@ -20,8 +20,10 @@ export function EpisodeCard({ id }: { id: string }) {
     episodeQuery,
     {
       variables: { episodeId: id },
+      errorPolicy: "all", // Handle errors gracefully
     }
   );
+
   if (!data?.episode) {
     return (
       <div className="flex flex-col items-center">
