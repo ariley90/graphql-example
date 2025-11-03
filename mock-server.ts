@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import logger from 'pino-http';
 
-import { handlers } from '@/testing/handlers2';
+import { handlers } from '@/testing/handlers/southParkHandlers';
 
 const app = express();
 
