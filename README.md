@@ -1,5 +1,11 @@
 # Graphproof React - Rick and Morty Index
 
+## Setup
+
+`NEXT_PUBLIC_GRAPH_URL=http://localhost:8000/graphql`
+`npm run dev`
+`npm run mock-graphql-server`
+
 ## TO-DO
 
 - eslint ✅
